@@ -6,11 +6,19 @@ class todoList extends Component {
 
 
     render() {
+            const {handleDelete,handleEdit,handleClear,items} = this.props
         return (
-            <div>
-               <h2>todo list</h2>
-               <TodoItem />
-            </div>
+            <ul className="list-group my-5">
+                    <h3 className="text-capitalize">Todo input</h3>
+                    {
+                        items.map((myItem) => {
+                           return(<TodoItem key={myItem.id} title={myItem.title} handleDelete={()=>handleDelete(myItem.id)}
+                            handleEdit={()=>handleEdit(myItem.id)} handleClear={()=>handleClear}/>)
+                           
+                        })
+                        
+                    }
+            </ul>
         )
     }
 }

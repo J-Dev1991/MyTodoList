@@ -16,12 +16,29 @@ class  App extends Component {
   }
 
   handleChange = e =>{
-
+      e.preventDefault();
+      this.setState({
+        item: e.target.value
+      });
   }
 
 
   handleSubmit = e =>{
-    console.log("item submitted");
+    e.preventDefault();
+    const submitInput = {
+      id: this.state.id,
+      title: this.state.item
+    }
+
+    const updatedItems = [...this.state.items,submitInput]
+    
+      this.setState({
+        items: updatedItems,
+        item: "",
+        id: uuid(),
+        edit:false
+
+      }, ()=>console.log(this.state))
   }
 
   handleEdit = id => {
@@ -29,7 +46,14 @@ class  App extends Component {
   }
 
   handleDelete = id => {
-    console.log("delete button clicked");
+    const newItems = this.state.items;
+    this.state.newItems.filter((item) => {
+      if(item.id !== id){
+        this.setState({
+          items : newItems
+        })
+    }
+    });
   }
 
   handleClearList = e =>{
@@ -44,8 +68,8 @@ render() {
         <Todoinput 
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
-          // items={this.state.items}
-          // item={this.state.item}
+          edit={this.state.edit}
+          item={this.state.item}
           />
 
         <TodoList 
