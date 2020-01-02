@@ -17,14 +17,17 @@ class TodoInput extends Component {
                                  <i className="fas fa-book"></i>
                                  </div>
                             </div>
-                            <input type="text" value={item} className="form-control" onChange={handleChange}/>
+                            <input type="text" value={item} className="form-control" onChange={handleChange} />
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-block form-control m-1 " onSubmit={()=>handleSubmit} on>add item</button>                        
+        <button disabled={item ? false : true} type="submit" className={edit ? "btn btn-success btn-block form-control m-1" : "btn btn-primary btn-block form-control m-1 "} 
+        onSubmit={()=>handleSubmit}>{edit ? "Edit Item" : "Add Item"}
+   
+        </button>                        
         
                 </form>
             </section>
-        )
+        );
     }
 }
 

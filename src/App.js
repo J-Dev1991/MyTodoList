@@ -4,7 +4,6 @@ import Todoinput from './components/TodoInput'
 import './index.css'
 import uuid from 'uuid';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import "@fortawesome/fontawesome-free/css/all.min.css"
 
 class  App extends Component {
 
@@ -38,27 +37,40 @@ class  App extends Component {
         id: uuid(),
         edit:false
 
-      }, ()=>console.log(this.state))
+      })
   }
 
   handleEdit = id => {
-      console.log(`${id}`)
+  
+     const edited = this.state.items.filter(item => item.id !== id);
+     const selectedItem = this.state.items.find(item => item.id === id);
+       this.setState({
+         item: edited,
+         item: selectedItem.title,
+         id:id,
+         edit:true
+        })  
+  }
+
+  changeColor = () => {
+    this.setState({
+      backgroundColor: "green"
+    })
   }
 
   handleDelete = id => {
-    const newItems = this.state.items;
-    this.state.newItems.filter((item) => {
-      if(item.id !== id){
-        this.setState({
-          items : newItems
-        })
-    }
-    });
-  }
+    const filterItem = this.state.items.filter(item => item.id !== id); 
+      this.setState({
+          items:filterItem
+      })
+  };
 
-  handleClearList = e =>{
-    console.log("clear list button clicked")
-  }
+  handleClearList = () =>{
+    this.setState({
+      items: []
+    });
+    console.log("cleared");
+  };
 
 
 render() {
@@ -73,8 +85,8 @@ render() {
           />
 
         <TodoList 
-          handleSubmit={this.handleDelete}
-          handleChange={this.handleEdit}
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
           handleClearList={this.handleClearList}
           items={this.state.items}
           />
